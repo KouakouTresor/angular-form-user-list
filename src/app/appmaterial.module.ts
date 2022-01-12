@@ -39,7 +39,8 @@ import {MatCardModule} from '@angular/material/card';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+
   ],
   declarations: [],
   imports: [
