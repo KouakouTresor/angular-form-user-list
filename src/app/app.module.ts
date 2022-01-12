@@ -20,6 +20,7 @@ import { LdapAddComponent } from './ldap-add/ldap-add.component';
 import { AlertComponent } from './share/alert/alert.component';
 import { LdapManagementModule } from './ldap-management/ldap-management.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './security/login/login.component';
 /* import { LdapEditComponent } from './ldap-edit/ldap-edit.component';
 import { LdapAddComponent } from './ldap-add/ldap-add.component'; */
 
@@ -32,6 +33,7 @@ import { LdapAddComponent } from './ldap-add/ldap-add.component'; */
     AppComponent,
     NavbarComponent,
     PageNotFoundComponent,
+    LoginComponent,
    /*  LdapComponent */
   ],
   imports: [
