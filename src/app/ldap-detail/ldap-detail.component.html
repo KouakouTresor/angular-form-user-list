@@ -1,12 +1,13 @@
 <h3 class="mat-h3">
     <button mat-icon-button (click)="goToLdap()">
-        arrow_back
+       <mat-icon aria-labl="Acceuil">arrow_back</mat-icon> 
     </button>
     {{ addForm ? "Ajout d'un utilisateur" : "Edition d'un utilisateur" }}
 </h3>
 
 <section class="loading" *ngIf="processLoadRunning==true">
-    <span>En cours de chargement</span>
+    <mat-spinner diameter="25"></mat-spinner>
+    <span>En cours de chargement...</span>
 </section>
 <app-alert *ngIf="errorMessage.length>0" [type]="'danger'">{{errorMessage}}</app-alert>
 <form class="user-form" *ngIf="processLoadRunning==false" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
