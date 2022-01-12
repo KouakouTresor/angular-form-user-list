@@ -10,6 +10,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppMaterialModule } from '../appmaterial.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryUsersService } from '../service/in-memory-users.service';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import { HttpClientModule } from '@angular/common/http';
     AppMaterialModule,
     LdapManagementRoutingModule,
     HttpClientModule,
- /*    HttpClientInMemoryWebApiModule.forRoot(InMemoryUsersService, {
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryUsersService, {
       dataEncapsulation: false,
-    }), */
+    }), 
   ],
 })
 export class LdapManagementModule {}
+

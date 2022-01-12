@@ -22,7 +22,7 @@ export class UsersService {
   }
 
   getUsers(): Observable<UserLdap[]> {
-    return of(this.users);
+    return this.http.get<UserLdap[]>(this.usersUrl)
   }
 
   getUser(id: number): Observable<UserLdap> {
