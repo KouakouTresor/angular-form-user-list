@@ -12,6 +12,7 @@ import { AppMaterialModule } from '../appmaterial.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryUsersService } from '../service/in-memory-users.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { InMemoryUsersService } from '../service/in-memory-users.service';
     LdapAddComponent,
     LdapEditComponent,
     AlertComponent,
+    NavbarComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { InMemoryUsersService } from '../service/in-memory-users.service';
     ReactiveFormsModule,
     AppMaterialModule,
     LdapManagementRoutingModule,
+ 
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryUsersService, {
       dataEncapsulation: false,

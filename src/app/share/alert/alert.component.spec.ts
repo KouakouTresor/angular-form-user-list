@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 import { AlertComponent } from './alert.component';
 

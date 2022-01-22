@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 @Component({
   selector: 'app-alert',
@@ -6,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements OnInit {
+
   @Input() type: string;
 
   cssClass: string[] = ['alert', 'alert-dismissible', 'fade'];
