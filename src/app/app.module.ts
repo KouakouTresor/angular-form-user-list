@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LdapManagementModule } from './ldap-management/ldap-management.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './security/login/login.component';
+import { InMemoryUsersService } from './service/in-memory-users.service';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,10 @@ import { LoginComponent } from './security/login/login.component';
     LdapManagementModule,
     AppRoutingModule, 
     HttpClientModule,
- /*    HttpClientInMemoryWebApiModule.forRoot(InMemoryUsersService, {
+ HttpClientInMemoryWebApiModule.forRoot(
+   InMemoryUsersService, {
       dataEncapsulation: false,
-    }), */
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
