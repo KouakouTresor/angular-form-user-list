@@ -1,30 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { LdapDetailComponent } from '../ldap-detail/ldap-detail.component';
+import { UserLdap } from '../model/user-ldap';
 import { UsersService } from '../service/users.service';
 
 @Component({
   selector: 'app-ldap-edit',
   templateUrl: '../ldap-detail/ldap-detail.component.html',
-  styleUrls: ['../ldap-detail/ldap-detail.component.scss'],
+  styleUrls: ['../ldap-detail/ldap-detail.component.scss']
+
 })
 
 export class LdapEditComponent extends LdapDetailComponent implements OnInit {
   constructor(
-      private usersService: UsersService,
-      private route: ActivatedRoute,
-      fb: FormBuilder,
-      router: Router,
-      private snackBar: MatSnackBar
+    private usersService: UsersService,
+    private route: ActivatedRoute,
+    fb: FormBuilder,
+    router: Router,
+    private snackBar: MatSnackBar
   ) {
     super(false, fb, router);
   }
 
   ngOnInit(): void {
     super.onInit();
-    this.getUser();
+   /*  this.getUser(); */
   }
 
   validateForm(): void {
@@ -44,14 +47,13 @@ export class LdapEditComponent extends LdapDetailComponent implements OnInit {
     );
   }
 
-  private getUser(): void {
-    const login: any = this.route.snapshot.paramMap.get('id');
-
+ /*  private getUser(): void {
+    const id = this.route.snapshot.paramMap.get('id');
     this.processLoadRunning = true;
-
-    this.usersService.getUser(login).subscribe(
+    this.usersService.getUser(id).subscribe(
       (user) => {
         this.user = user;
+        console.log(this.user, "edit")
         this.copyUserToFormControl();
         this.processLoadRunning = false;
       },
@@ -61,6 +63,7 @@ export class LdapEditComponent extends LdapDetailComponent implements OnInit {
         this.snackBar.open('Utilisateur trouvé', 'X');
       }
     );
-  }
+  } */
+
 }
 

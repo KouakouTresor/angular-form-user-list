@@ -12,8 +12,8 @@ import { UserLdap } from '../model/user-ldap';
 })
 
 export class UsersService {
-  users: UserLdap[] = LDAP_USERS;
-  static users: UserLdap[] = LDAP_USERS;
+  /* users: UserLdap[] = LDAP_USERS; */
+  /* static users: UserLdap[] = LDAP_USERS; */
   private usersUrl = '';
   private httpOptions = new HttpHeaders({'Content-Type': 'application/json'});
   
@@ -22,10 +22,12 @@ export class UsersService {
   }
 
   getUsers(): Observable<UserLdap[]> {
+
     return this.http.get<UserLdap[]>(this.usersUrl)
   }
 
-  getUser(id: number): Observable<UserLdap> {
+  getUser(id: string): Observable<UserLdap> {
+
     return this.http.get<UserLdap>(this.getUsers + '/' + id)
   }
 
@@ -36,6 +38,7 @@ export class UsersService {
   }
 
   updateUser(user: UserLdap): Observable<UserLdap> {
+    console.log("fjsdjfds")
    return this.http.put<UserLdap>(this.usersUrl + '/' + user.id, user, {headers: this.httpOptions})
   }
 

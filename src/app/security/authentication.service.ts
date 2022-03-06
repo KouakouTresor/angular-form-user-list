@@ -1,7 +1,8 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-interface AuthenticationResponse{
+interface AuthenticationResponse {
   status: boolean;
   token: string;
   message: string;
@@ -17,33 +18,56 @@ export class AuthenticationService {
 
   constructor() { }
 
-  static isLoggedIn(){
+  static isLoggedIn() {
     const token = AuthenticationService.getToken();
     console.log('token=' + token);
     return !!token && !AuthenticationService.isTokenExpired(token)
   }
 
-  static isTokenExpired(token: string){
+  static isTokenExpired(token: string) {
+    /*     try{
+          const decoded =  jwt_decode(token)
+          return decoded.exp < Date.now() / 1000;
+        } catch(err){
+          return false
+        } */
     return false;
   }
 
 
-  static setToken(idToken: string){
+  static setToken(idToken: string) {
     sessionStorage.setItem('id_token', idToken)
   }
 
-  static getToken(){
+  static getToken() {
     return sessionStorage.getItem('id_token')
   }
 
-  static logout(){
+  static logout() {
     sessionStorage.removeItem('id_token')
   }
 
-  loginWithRole(username, password, role): Observable<AuthenticationResponse>{
+  loginWithRole(username, password, role): Observable<AuthenticationResponse> {
+/*     const url = `${this.authenticationUrl}/login`
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
 
-    const response : AuthenticationResponse
-    = { status: true, message: 'HTTP 200', token: 'atoken'};
+    return this.httClient.request<AuthenticationResponse>('POST', url, {
+      body: {
+        username, 
+        password, 
+        role
+      }, 
+      headers: httpOptions.headers
+    }).pipe(
+      tap((data: AuthenticationResponse)
+      =>AuthenticationService.setToken(data.token))
+    ) */
+    const response: AuthenticationResponse
+      = { status: true, message: 'HTTP 200', token: 'atoken' };
     AuthenticationService.setToken('token');
     return of(response);
   }
