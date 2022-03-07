@@ -4,8 +4,8 @@
             <mat-card-content>
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <mat-form-field class="full-width-input">
-                        <input matInput placeholder="User" formControlName="userName" required>
-                        <mat-error *ngIf="isFieldInvalid('userName')">
+                        <input matInput placeholder="User" formControlName="login" required>
+                        <mat-error *ngIf="isFieldInvalid('login')">
                             Login incorrect
                         </mat-error>
                     </mat-form-field>

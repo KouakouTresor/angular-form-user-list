@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      userName: ['', Validators.required],
+      login: ['', Validators.required],
       password: ['', Validators.required]
     })
   }
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     if(this.form.valid){
       this.processRunning = true;
       this.authenticationService.loginWithRole(
-        this.form.get('userName').value,
+        this.form.get('login').value,
         this.form.get('password').value,
         'ROLE_SUPER_ADMIN'
       ).subscribe(()=>{

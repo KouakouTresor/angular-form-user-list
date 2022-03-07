@@ -1,4 +1,4 @@
-<app-navbar>
+
     <h3 class="mat-h3">
         <button mat-icon-button (click)="goToLdap()">
             <mat-icon aria-labl="Acceuil">arrow_back</mat-icon>
@@ -11,20 +11,22 @@
         <span>En cours de chargement...</span>
     </section>
     <app-alert *ngIf="errorMessage.length>0" [type]="'danger'">{{errorMessage}}</app-alert>
-    <form class="user-form" *ngIf="processLoadRunning==false" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+    
+    <ng-template [ngIf]="!processLoadRunning" >
+    <form class="user-form" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
         <table class="user-full-width">
             <tr>
                 <td>
                     <mat-form-field class="user-full-width">
                         <input matInput class="form-control" placeholder="Nom de l'utilisateur" id="nom"
-                            formControlName="nom" required (input)="updateLogin()" />
+                            formControlName="nom" required (input)="updateUsername()" />
                         <mat-error>Le nom est requis</mat-error>
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field class="user-full-width">
                         <input matInput class="form-control" placeholder="Prénom de l'utilisateur" id="prenom"
-                            formControlName="prenom" required (input)="updateLogin()" />
+                            formControlName="prenom" required (input)="updateUsername()" />
                         <mat-error>Le prenom est requis</mat-error>
                     </mat-form-field>
                 </td>
@@ -35,17 +37,17 @@
             <tr>
                 <td>
                     <mat-form-field class="user-full-width">
-                        <input matInput class="form-control" placeholder="Login de l'utilisateur" id="login"
-                            formControlName="login" required (input)="updateMail()" />
+                        <input matInput class="form-control" placeholder="Login de l'utilisateur" 
+                            formControlName="nomComplet" required (input)="updateMail()" />
                         <mat-error>Le login est requis</mat-error>
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field class="user-full-width">
-                        <mat-label>Mail</mat-label>
-                        <input matInput mail="mail" formControlName="mail" />
+                        <mat-label>E-Mail</mat-label>
+                        <input matInput name="email" formControlName="email" />
                     </mat-form-field>
-                </td>
+                </td>         
             </tr>
         </table>
         <table class="user-full-width" formGroupName="passwordGroup">
@@ -60,19 +62,22 @@
                 <td>
                     <mat-form-field class="user-full-width">
                         <input matInput type="password" placeholder="Vérification du mot de passe" id="confirmPassword"
-                            formControlName="confirmPassword" [errorStateMatcher]="confirmValidParentMatcher" />
+                            formControlName="confirmPassword"/>
                         <mat-error>Les mots de passes doivent etre identiques </mat-error>
                     </mat-form-field>
                 </td>
             </tr>
         </table>
-        <div style="display:flex; justify-content:flex-end;">
-            <button type="submit" mat-stroked-button color="primary" [disabled]="processValidateRunning || !isFormValid()">
-                <mat-icon *ngIf="processValidateRunning">
-                    <mat-spinner diameter="16"></mat-spinner>
-                </mat-icon>
+        <div style="display: flex ; justify-content: flex-end;">
+            <button type="submit" mat-stroked-button color="primary"
+                [disabled]="processValidateRunning || !isFormValid() || !addForm "> <!-- pas de modification -->
+                <ng-template [ngIf]="processValidateRunning">
+                    <mat-icon >
+                        <mat-spinner diameter="16"></mat-spinner>
+                    </mat-icon>
+                </ng-template>
                 Valider
             </button>
         </div>
     </form>
-</app-navbar>
+</ng-template>

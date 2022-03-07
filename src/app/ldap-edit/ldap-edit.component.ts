@@ -2,9 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { LdapDetailComponent } from '../ldap-detail/ldap-detail.component';
-import { UserLdap } from '../model/user-ldap';
 import { UsersService } from '../service/users.service';
 
 @Component({
@@ -27,43 +25,44 @@ export class LdapEditComponent extends LdapDetailComponent implements OnInit {
 
   ngOnInit(): void {
     super.onInit();
-   /*  this.getUser(); */
+    this.getUser(); 
   }
 
-  validateForm(): void {
-    console.log('LdapEditComponent -  validateForm');
+
+  validateForm():void {
+    console.log('LdapEditComponet - validateForm');
     this.processValidateRunning = true;
     this.usersService.updateUser(this.getUserFormControl()).subscribe(
-      (data) => {
+      data => {
+        console.log(data);
         this.processValidateRunning = false;
-        this.errorMessage = '';
-        this.snackBar.open('Utilisateur modifié!', 'X');
-      },
-      (error) => {
-        this.processValidateRunning = false;
-        this.errorMessage = 'Une erreur est survenue dans la modification !';
+        this.errorMessage ='';
         this.snackBar.open('Utilisateur modifié !', 'X');
+      },
+      error => {
+        this.processValidateRunning = true;
+        this.errorMessage ='Une erreur est survenue dans la modification !';
+        this.snackBar.open('Utilisateur non modifié !', 'X');
       }
     );
   }
 
- /*  private getUser(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+  private getUser(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
     this.processLoadRunning = true;
     this.usersService.getUser(id).subscribe(
-      (user) => {
+      user => {
         this.user = user;
-        console.log(this.user, "edit")
         this.copyUserToFormControl();
         this.processLoadRunning = false;
       },
-      (error) => {
-        this.processValidateRunning = false;
-        this.errorMessage = "L'utilisateur n'existe pas";
-        this.snackBar.open('Utilisateur trouvé', 'X');
+      erroor => {
+        this.processLoadRunning = false;
+        this.errorMessage='L\'utilisatuer n\'existe pas !';
+        this.snackBar.open('Utilisateur non trouvé !', 'X');
       }
     );
-  } */
+  }
 
 }
 

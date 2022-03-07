@@ -4,18 +4,19 @@ import { AppComponent } from '../app.component';
 import { LdapAddComponent } from '../ldap-add/ldap-add.component';
 import { LdapEditComponent } from '../ldap-edit/ldap-edit.component';
 import { LdapListComponent } from '../ldap-list/ldap-list.component';
+import { LdapComponent } from '../ldap/ldap.component';
 import { AuthGuard } from '../security/auth.guard';
 
 const adminRoutes: Routes = [
   {
     path: 'users',
-    component: AppComponent,
+    component: LdapComponent,
     canActivate: [AuthGuard],
     children: [
       { path: 'list', component: LdapListComponent },
       { path: 'add', component: LdapAddComponent},
       { path: ':id', component: LdapEditComponent},
-      { path: '', redirectTo: '/users/list', pathMatch: 'full' },
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
     ]
   },
   ];

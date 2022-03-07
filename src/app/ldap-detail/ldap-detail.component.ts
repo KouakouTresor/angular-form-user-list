@@ -6,29 +6,25 @@ import { UsersService } from '../service/users.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ConfirmValidParentMatcher, passwordValidator } from './passwords-validator.directive';
 
-/*  @Component({
-   selector: 'app-ldap-detail',
-  templateUrl: './ldap-detail.component.html',
-  styleUrls: ['./ldap-detail.component.scss'], 
-})  */
 
 export abstract class LdapDetailComponent {
+  [x: string]: any;
   user: UserLdap;
   processLoadRunning = false;
   processValidateRunning = false;
   passwordPlaceHolder: string; 
 
   confirmValidParentMatcher = new ConfirmValidParentMatcher()
-  errorMessage = ''
+  errorMessage = "";
   userForm = this.fb.group({
-    login: [''],
+    nomComplet: [''],
     nom: [''],
     prenom: [''],
     passwordGroup: this.fb.group(
       { password: [''], confirmPassword: [''] },
       { validators: passwordValidator }
     ),
-    mail: { value: '', disabled: true },
+    email: { value: '', disabled: true },
   });
 
 
@@ -44,14 +40,15 @@ export abstract class LdapDetailComponent {
   }
 
   protected onInit(): void {
-   /*  this.getUser(); */
   }
 
+ goToLdap(): void {
+  this.router.navigate(['/users/list']);
+}
+
   isFormValid(): boolean {
-    return (
-      this.userForm.valid &&
-      (!this.addForm || this.formGetValue('passwordGroup.password')! == '')
-    );
+    return this.userForm.valid && (!this.addForm || this.formGetValue('passwordGroup.password')!== '')
+    
   }  
 
   abstract validateForm(): void;
@@ -60,66 +57,57 @@ export abstract class LdapDetailComponent {
     this.validateForm();
   }
 
+
+  updateMail(): void {
+    if (this.addForm) {
+      this.userForm.get('email').setValue(this.formGetValue('nom').toLowerCase() + '@domain.com');
+    }
+  }
+
   updateLogin(): void {
     if (this.addForm) {
-      this.userForm
-        .get('login')
-        .setValue(
-          (
-            this.formGetValue('prenom') +
-            '.' +
-            this.formGetValue('nom')
-          ).toLowerCase()
-        );
+      this.userForm.get('nomComplet').setValue(( this.formGetValue('prenom') + '.' + this.formGetValue('nom')).toLowerCase());
       this.updateMail();
     }
   }
 
-  updateMail(): void {
-    if (this.addForm) {
-      this.userForm
-        .get('mail')
-        .setValue(this.formGetValue('login').toLowerCase() + '@domain.com');
-    }
+  public updateUsername(){
+    this.userForm.get('email').setValue((this.formGetValue('nomComplet') +'.' + '@domain.com'));
+    this.updateMail();
   }
 
+
   protected  copyUserToFormControl(): void {
-    this.userForm.get('login').setValue(this.user.login);
-    this.userForm.get('nom').setValue(this.user.nom);
-    this.userForm.get('prenom').setValue(this.user.prenom);
-    this.userForm.get('mail').setValue(this.user.mail);
+    this.userForm.get('nomComplet').setValue(this.user.nomComplet);
+    this.userForm.get('nom').setValue(this.getNomFromUser());
+    this.userForm.get('prenom').setValue(this.getPrenomFromUser());
+    this.userForm.get('email').setValue(this.user.email);
   } 
+
+  private getNomFromUser(){
+    var prenomETnom = this.user.nomComplet.split('.');
+    return prenomETnom[0];
+  }
+
+  private getPrenomFromUser(){
+    var prenomETnom = this.user.nomComplet.split('.');
+    return prenomETnom[1];
+  }
 
   protected getUserFormControl(): UserLdap {
     return {
-      id: this.userForm.get('id').value,
-      login: this.userForm.get('login').value,
-      nom: this.userForm.get('nom').value,
-      prenom: this.userForm.get('prenom').value,
-      nomComplet: this.userForm.get('nom').value + '' + this.userForm.get('prenom').value,
-      mail: this.userForm.get('mail').value,
-      employeNumero: 1,
-      employeNiveau: 1,
-      dateEmbauche: '2020-01-01',
-      publisherId: 1,
+      id: this.addForm ? null: this.user.id,
+      nomComplet:(this.formGetValue('prenom') +'.'+this.formGetValue('nom')).toLowerCase(),
+      email: this.userForm.get('email').value,
       active: true,
-      motDePasse: '',
-      role: 'Role_USER',
+      password: this.userForm.get('passwordGroup.password').value,
+      role: 'ROLE_USER',
     };
   } 
 
   private formGetValue(name: string): any {
     return this.userForm.get(name).value;
   }
-
-
-
-  goToLdap(): void {
-    this.router.navigate(['/users/list']);
-  }
-
-  /*  abstract validateForm(): void; */
-
 
    
 }

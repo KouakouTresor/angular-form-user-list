@@ -27,17 +27,17 @@ export class LdapAddComponent extends LdapDetailComponent implements OnInit {
 
    validateForm(): void {
     console.log('LdapAddComponent - validateForm')
-    this.processLoadRunning = true;
+    this.processValidateRunning = true;
     this.usersService.addUser(this.getUserFormControl()).subscribe(
       data=>{
         this.processValidateRunning = false;
         this.errorMessage = '';
         this.snackBar.open('Utilisateur ajouté!', 'X')
       },
-      error=>{
+      error => {
         this.processValidateRunning = false;
-        this.errorMessage = 'L\'utilisateur n\'existe pas!';
-        this.snackBar.open('Utilisateur ajouté!', 'X')
+        this.errorMessage ='L\'utilisateur n\'a pas pu être ajouté !';
+        this.snackBar.open('Erreur dans l\'ajout de l\'utilisateur !', 'X');
       }
     )
   }

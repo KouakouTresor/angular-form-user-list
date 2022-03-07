@@ -26,7 +26,7 @@ export class UsersService {
     return this.http.get<UserLdap[]>(this.usersUrl)
   }
 
-  getUser(id: string): Observable<UserLdap> {
+  getUser(id: number): Observable<UserLdap> {
 
     return this.http.get<UserLdap>(this.getUsers + '/' + id)
   }
@@ -38,7 +38,6 @@ export class UsersService {
   }
 
   updateUser(user: UserLdap): Observable<UserLdap> {
-    console.log("fjsdjfds")
    return this.http.put<UserLdap>(this.usersUrl + '/' + user.id, user, {headers: this.httpOptions})
   }
 

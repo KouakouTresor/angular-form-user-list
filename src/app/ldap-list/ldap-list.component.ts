@@ -13,7 +13,7 @@ import { UsersService } from '../service/users.service';
   styleUrls: ['./ldap-list.component.scss']
 })
 export class LdapListComponent implements OnInit {
-  displayedColumns: string[] = ['nomComplet', 'mail', 'employeNumero'];
+  displayedColumns: string[] = ['nomComplet', 'email', 'Action'];
   dataSource = new MatTableDataSource<UserLdap>([]);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | any; 
@@ -26,6 +26,10 @@ export class LdapListComponent implements OnInit {
     this.getUsers()
   }
   
+  ngAfterViewInit(): void {
+    console.log('Values on ngAfterViewInit()');
+    console.log("Mat Paginator:", this.paginator);
+  }
   
   filterPredicate(data: UserLdap, filter: string): boolean {
     return !filter || data.nomComplet.toLowerCase().startsWith(filter);
@@ -38,7 +42,7 @@ export class LdapListComponent implements OnInit {
 
    unactiveSelected = false;
 
-   private getUsers() {
+   private getUsers(): void {
     this.usersService.getUsers().subscribe(
       users=>{
         if(this.unactiveSelected){
