@@ -6,3 +6,9 @@ export interface UserLdap {
   role: string;
   active: boolean;
 }
+
+export enum ERole {
+  ROLE_USER,
+  ROLE_MODERATOR,
+  ROLE_ADMIN    
+}

@@ -8,11 +8,10 @@ import { ConfirmValidParentMatcher, passwordValidator } from './passwords-valida
 
 
 export abstract class LdapDetailComponent {
-  [x: string]: any;
-  user: UserLdap;
+  user: UserLdap 
   processLoadRunning = false;
   processValidateRunning = false;
-  passwordPlaceHolder: string; 
+  passwordPlaceHolder: string;
 
   confirmValidParentMatcher = new ConfirmValidParentMatcher()
   errorMessage = "";
@@ -32,7 +31,6 @@ export abstract class LdapDetailComponent {
 
   protected constructor(
     public addForm: boolean,
-    /*  private route: ActivatedRoute, */
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -42,14 +40,14 @@ export abstract class LdapDetailComponent {
   protected onInit(): void {
   }
 
- goToLdap(): void {
-  this.router.navigate(['/users/list']);
-}
+  goToLdap(): void {
+    this.router.navigate(['/users/list']);
+  }
 
   isFormValid(): boolean {
-    return this.userForm.valid && (!this.addForm || this.formGetValue('passwordGroup.password')!== '')
-    
-  }  
+    return this.userForm.valid && (!this.addForm || this.formGetValue('passwordGroup.password') !== '');
+
+  }
 
   abstract validateForm(): void;
 
@@ -58,38 +56,33 @@ export abstract class LdapDetailComponent {
   }
 
 
-  updateMail(): void {
-    if (this.addForm) {
-      this.userForm.get('email').setValue(this.formGetValue('nom').toLowerCase() + '@domain.com');
-    }
-  }
 
-  updateLogin(): void {
-    if (this.addForm) {
-      this.userForm.get('nomComplet').setValue(( this.formGetValue('prenom') + '.' + this.formGetValue('nom')).toLowerCase());
-      this.updateMail();
-    }
-  }
 
-  public updateUsername(){
-    this.userForm.get('email').setValue((this.formGetValue('nomComplet') +'.' + '@domain.com'));
+  public updateUsername() {
+    this.userForm.get('nomComplet').setValue((this.formGetValue('prenom') + '.' + this.formGetValue('nom')).toLowerCase());
     this.updateMail();
   }
 
+  updateMail(): void {
+      this.userForm.get('email').setValue(this.formGetValue('nom').toLowerCase() + '@domain.com');
 
-  protected  copyUserToFormControl(): void {
+  }
+
+
+  protected copyUserToFormControl(): void {
     this.userForm.get('nomComplet').setValue(this.user.nomComplet);
     this.userForm.get('nom').setValue(this.getNomFromUser());
     this.userForm.get('prenom').setValue(this.getPrenomFromUser());
     this.userForm.get('email').setValue(this.user.email);
-  } 
+  }
 
-  private getNomFromUser(){
+  private getNomFromUser() {
     var prenomETnom = this.user.nomComplet.split('.');
     return prenomETnom[0];
   }
 
-  private getPrenomFromUser(){
+  private getPrenomFromUser() {
+    console.log(this.user.id)
     var prenomETnom = this.user.nomComplet.split('.');
     return prenomETnom[1];
   }
@@ -97,17 +90,17 @@ export abstract class LdapDetailComponent {
   protected getUserFormControl(): UserLdap {
     return {
       id: this.addForm ? null: this.user.id,
-      nomComplet:(this.formGetValue('prenom') +'.'+this.formGetValue('nom')).toLowerCase(),
+      nomComplet: (this.formGetValue('prenom') + '.' + this.formGetValue('nom')).toLowerCase(),
       email: this.userForm.get('email').value,
       active: true,
       password: this.userForm.get('passwordGroup.password').value,
       role: 'ROLE_USER',
     };
-  } 
+  }
 
   private formGetValue(name: string): any {
     return this.userForm.get(name).value;
   }
 
-   
+
 }

@@ -56,7 +56,7 @@ export class LdapEditComponent extends LdapDetailComponent implements OnInit {
         this.copyUserToFormControl();
         this.processLoadRunning = false;
       },
-      erroor => {
+      error => {
         this.processLoadRunning = false;
         this.errorMessage='L\'utilisatuer n\'existe pas !';
         this.snackBar.open('Utilisateur non trouvé !', 'X');

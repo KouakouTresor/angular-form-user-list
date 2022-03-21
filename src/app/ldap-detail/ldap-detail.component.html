@@ -12,9 +12,9 @@
     </section>
     <app-alert *ngIf="errorMessage.length>0" [type]="'danger'">{{errorMessage}}</app-alert>
     
-    <ng-template [ngIf]="!processLoadRunning" >
-    <form class="user-form" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
-        <table class="user-full-width">
+
+        <form class="user-form" *ngIf="processLoadRunning==false" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+            <table class="user-full-width">
             <tr>
                 <td>
                     <mat-form-field class="user-full-width">
@@ -46,7 +46,7 @@
                     <mat-form-field class="user-full-width">
                         <mat-label>E-Mail</mat-label>
                         <input matInput name="email" formControlName="email" />
-                    </mat-form-field>
+                    </mat-form-field> 
                 </td>         
             </tr>
         </table>
@@ -70,7 +70,7 @@
         </table>
         <div style="display: flex ; justify-content: flex-end;">
             <button type="submit" mat-stroked-button color="primary"
-                [disabled]="processValidateRunning || !isFormValid() || !addForm "> <!-- pas de modification -->
+                [disabled]="processValidateRunning || !isFormValid() "> 
                 <ng-template [ngIf]="processValidateRunning">
                     <mat-icon >
                         <mat-spinner diameter="16"></mat-spinner>
@@ -80,4 +80,3 @@
             </button>
         </div>
     </form>
-</ng-template>
