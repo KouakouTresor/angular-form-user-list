@@ -20,7 +20,7 @@ export class LdapEditComponent extends LdapDetailComponent implements OnInit {
     router: Router,
     private snackBar: MatSnackBar
   ) {
-    super(false, fb, router);
+    super(true, fb, router);
   }
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class LdapEditComponent extends LdapDetailComponent implements OnInit {
     this.processValidateRunning = true;
     this.usersService.updateUser(this.getUserFormControl()).subscribe(
       data => {
-        console.log(data);
+
         this.processValidateRunning = false;
         this.errorMessage ='';
         this.snackBar.open('Utilisateur modifié !', 'X');
@@ -58,7 +58,6 @@ export class LdapEditComponent extends LdapDetailComponent implements OnInit {
       },
       error => {
         this.processLoadRunning = false;
-        this.errorMessage='L\'utilisatuer n\'existe pas !';
         this.snackBar.open('Utilisateur non trouvé !', 'X');
       }
     );

@@ -8,7 +8,7 @@ import { ConfirmValidParentMatcher, passwordValidator } from './passwords-valida
 
 
 export abstract class LdapDetailComponent {
-  user: UserLdap 
+  user : UserLdap; 
   processLoadRunning = false;
   processValidateRunning = false;
   passwordPlaceHolder: string;
@@ -16,6 +16,7 @@ export abstract class LdapDetailComponent {
   confirmValidParentMatcher = new ConfirmValidParentMatcher()
   errorMessage = "";
   userForm = this.fb.group({
+    id: '',
     nomComplet: [''],
     nom: [''],
     prenom: [''],
@@ -37,6 +38,7 @@ export abstract class LdapDetailComponent {
     this.passwordPlaceHolder = 'Mot de passe' + (this.addForm ? '' : '(vide si inchangé)');
   }
 
+ 
   protected onInit(): void {
   }
 
@@ -65,7 +67,6 @@ export abstract class LdapDetailComponent {
 
   updateMail(): void {
       this.userForm.get('email').setValue(this.formGetValue('nom').toLowerCase() + '@domain.com');
-
   }
 
 
@@ -82,14 +83,14 @@ export abstract class LdapDetailComponent {
   }
 
   private getPrenomFromUser() {
-    console.log(this.user.id)
+    
     var prenomETnom = this.user.nomComplet.split('.');
     return prenomETnom[1];
   }
 
   protected getUserFormControl(): UserLdap {
     return {
-      id: this.addForm ? null: this.user.id,
+      id: 2,
       nomComplet: (this.formGetValue('prenom') + '.' + this.formGetValue('nom')).toLowerCase(),
       email: this.userForm.get('email').value,
       active: true,

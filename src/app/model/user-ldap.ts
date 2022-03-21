@@ -1,5 +1,5 @@
 export interface UserLdap {
-  id?: number;
+  id: number;
   nomComplet: string;
   password: string;
   email: string;

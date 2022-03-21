@@ -7,11 +7,6 @@ import { ERole } from '../model/user-ldap';
 
 
 interface AuthenticationResponse {
-/*   accessToken :string;
-  id: number;
-  nomComplet: string;
-  password: string;
-  roles : Array<ERole>; */
   status: boolean,
   token: string,
   message: string
@@ -55,22 +50,6 @@ export class AuthenticationService {
   }
 
   loginWithRole(nomComplet, password, role): Observable<AuthenticationResponse> {
-     /*   const url = `${this.authenticationUrl}/login`
-        const httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          })
-        }
-        return this.httpClient.request<AuthenticationResponse>('POST', url, {
-          body: {
-            nomComplet, 
-            password, 
-            role
-          }, 
-          headers: httpOptions.headers
-        }).pipe(
-          tap((data: AuthenticationResponse)=>AuthenticationService.setToken(data.token))
-        )  */
          const response: AuthenticationResponse
           = { status: true, message: 'HTTP 200', token: 'atoken' };
         AuthenticationService.setToken('token');

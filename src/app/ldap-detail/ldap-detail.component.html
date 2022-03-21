@@ -70,7 +70,7 @@
         </table>
         <div style="display: flex ; justify-content: flex-end;">
             <button type="submit" mat-stroked-button color="primary"
-                [disabled]="processValidateRunning || !isFormValid() "> 
+                [disabled]="processValidateRunning || !isFormValid() || !addForm"> 
                 <ng-template [ngIf]="processValidateRunning">
                     <mat-icon >
                         <mat-spinner diameter="16"></mat-spinner>
